@@ -1,0 +1,45 @@
+    1  dnf install -y libcap git nano
+    2  id
+    3  export PROMPT_COMMAND='history -a'
+    4  groupadd students
+    5  useradd -m -u 1234 -G students -s /bin/bash user1
+    6  passwd user1
+    7  chage -M 90 user1
+    8  id user1
+    9  chage -l user1 | grep Maximum
+   10  find / -type f -perm -4000 -exec ls -l {} \; 2>/dev/null | tee ~/suid_files.out
+   11  ps -eo pid,ruid,euid,ruser,euser,cmd | awk 'NR==1 || ($3==0 && $2>=1000 && $2<65534)'
+   12    ps -eo pid,ruid,euid,ruser,euser,cmd | awk 'NR==1 || ($3==0 && $2>=1000 && $2<65534)' | tee -a ~/ps_privileged.out
+   13  ps -eo pid,ruid,euid,ruser,euser,cmd | awk 'NR==1 || ($3==0 && $2>=1000 && $2<65534)' | tee -a ~/ps_privileged.out
+   14  su - user1 -c 'cat /etc/shadow'
+   15  cp /bin/cat /home/user1/mycat
+   16  chown root:root /home/user1/mycat
+   17  chmod 4755 /home/user1/mycat
+   18  ls -l /home/user1/mycat
+   19  su - user1 -c '/home/user1/mycat /etc/shadow | head -3'
+   20  su - user1 -c 'touch ~/testfile && chown nobody ~/testfile'
+   21  cp /bin/chown /home/user1/mychown
+   22  setcap cap_chown+ep /home/user1/mychown
+   23  getcap /home/user1/mychown
+   24  ls -l /home/user1/mychown
+   25  su - user1 -c '/home/user1/mychown nobody ~/testfile && ls -l ~/testfile'
+   26  EDITOR=nano visudo
+   27  sudo -l -U user1
+   28  timedatectl set-ntp false
+   29  su - user1 -c 'sudo date -s "2026-10-17 12:00:00"'
+   30  su - user1 -c 'date'
+   31  timedatectl set-ntp true
+   32  timedatectl set-ntp false
+   33  su - user1
+   34  timedatectl set-ntp true
+   35  echo "Мой уникальный номер: М265803"
+   36  stat /home/user1 > ~/stat.out
+   37  stat /home/user1/mycat >> ~/stat.out
+   38  stat /home/user1/mychown >> ~/stat.out
+   39  getcap /home/user1/mychown > ~/getcap.out
+   40  mkdir ~/mephi-linux-security-2026
+   41  cd ~/mephi-linux-security-2026
+   42  cp /etc/passwd /etc/shadow /etc/group /etc/sudoers .
+   43  cp ~/stat.out ~/getcap.out ~/suid_files.out ~/ps_privileged.out .
+   44  sed -i 's/^alexandr:[^:]*:/alexandr:*:/' shadow
+   45  history > ~/history.out

@@ -1,0 +1,11 @@
+    PID  RUID  EUID RUSER    EUSER    CMD
+   3216  1000     0 alexandr root     fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+   5161  1000     0 alexandr root     sudo -i
+   5173  1000     0 alexandr root     sudo -i
+    PID  RUID  EUID RUSER    EUSER    CMD
+   3216  1000     0 alexandr root     fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+   5161  1000     0 alexandr root     sudo -i
+   5173  1000     0 alexandr root     sudo -i
+   5299  1000     0 alexandr root     sudo -i
+   5303  1000     0 alexandr root     sudo -i
+   5396  1234     0 user1    root     passwd
